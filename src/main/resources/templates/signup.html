@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" th:href="@{css/font-awesome.min.css}" />
+        <link type="text/css" rel="stylesheet" href="/css/style.css" th:href="@{css/style.css}" />
+        <title>Sign up</title>
+    </head>
+    <body>
+        <div class="bg-login">
+            <div class="container-login">
+                <div class="panel panel-default">
+                    <div class="panel-body box-login">
+                        <h3 class="title-login">Sign up</h3>
+                        <form th:object="${signupForm}" th:action="@{/saveUser}" action="#" method="post">
+                            <div class="form-group">
+                                <input type="text" th:field="*{username}" class="form-control" placeholder="Username" />
+                                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+                            </div>	
+                            <div class="form-group">
+                                <input type="password" th:field="*{password}" class="form-control" placeholder="Password" />
+                                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+                            </div>	
+                            <div class="form-group">
+                                <input type="password" th:field="*{passwordCheck}" class="form-control" placeholder="Re-enter Password" />
+                                <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-default" href="/"><i class="fa fa-arrow-left"></i> Back</a>
+                                <button type="submit" class="btn btn-login"/>
+                                <i class="fa fa-hdd-o"></i> Save
+                                </button>
+                            </div>	
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

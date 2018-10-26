@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+    </head>
+    <body>
+        <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+        <div class="container">
+            <h2>Add Course</h2>
+            <form th:action="@{/student/{id}/courses(id=${student.id})}" method="get" enctype="multipart/form-data" >
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Student Info</div>
+                        <div class="panel-body" style="padding-left: 5px;">
+                            Name: <b th:text="${student.firstName}" /> <b th:text="${student.lastName}" /><br/>
+                            Email: <span th:text="${student.email}" /><br/>
+                            Department: <span th:text="${student.department}" /><br/>
+                            <br/>Courses:
+                            <span th:each="course : ${student.courses}">
+                                <br/>&nbsp;&nbsp;<span th:text="${course.name}" />
+                            </span>
+                            <br/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="courseId">
+                            <option th:each="course : ${courses}" 
+                                    th:value="${course.courseid}" 
+                                    th:text="${course.name}">Course</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-default" href="/students"><i class="fa fa-arrow-left"></i> Back</a>
+                        <button type="submit" class="btn btn-login"/>
+                        <i class="fa fa-hdd-o"></i> Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

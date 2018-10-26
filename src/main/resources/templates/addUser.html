@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+    </head>
+    <body>
+        <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+        <div class="container">
+            <h2>New User</h2>
+            <div class="col-md-4">
+                <form th:object="${signupForm}" th:action="@{/saveUser}" action="#" method="post">
+                    <div class="form-group">
+                        <input type="text" th:field="*{username}" class="form-control" placeholder="Username" />
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+                    </div>	
+                    <div class="form-group">
+                        <input type="password" th:field="*{password}" class="form-control" placeholder="Password" />
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+                    </div>	
+                    <div class="form-group">
+                        <input type="password" th:field="*{passwordCheck}" class="form-control" placeholder="Re-enter Password" />
+                        <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="role">
+                            <option th:value="ADMIN" th:text="ADMIN">ADMIN</option>
+                            <option th:value="USER" th:text="USER">USER</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-default" href="/"><i class="fa fa-arrow-left"></i> Back</a>
+                        <button type="submit" class="btn btn-login"/>
+                        <i class="fa fa-hdd-o"></i> Save
+                        </button>
+                    </div>	
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" th:href="@{css/font-awesome.min.css}" />
+        <link type="text/css" rel="stylesheet" href="/css/style.css" th:href="@{css/style.css}" />
+        <title>Login</title>
+    </head>
+    <body>
+        <div class="bg-login">
+            <div class="container-login">
+                <div class="panel panel-default">
+                    <div class="panel-body box-login">
+                        <h3 class="title-login">Sign in</h3>
+                        <form th:action="@{/login}" method="post">
+                            <div class="form-group">
+                                <i class="fa fa-user"></i>
+                                <input type="text" name="username" class="form-control input-login" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <i class="fa fa-lock"></i>
+                                <input type="password" name="password" class="form-control input-login" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Login" class="btn-login btn-lg btn-block"/>
+                            </div>
+                        </form>
+                        <a th:href="@{/signup}">Sign up</a>
+                        <div class="alert alert-danger" th:if="${param.error}">
+                            Invalid username and password.
+                        </div>
+                        <div class="alert alert-warning" th:if="${param.logout}">
+                            You have been logged out.
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <strong>Test Login:</strong><br /><br />
+                    Username: admin<br />
+                    Password: admin<br />
+                </div>
+                <br /><br />
+            </div>
+        </div>
+    </body>
+</html>
