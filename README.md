@@ -20,10 +20,10 @@ Spring much lighter! :)
 ## Tecnologies
 
 - Java
+- JPA
 - Maven
 - Spring-Boot
 - CSS
-- Jquery
 - Bootstrap
 - MySql
 
