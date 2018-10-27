@@ -21,7 +21,7 @@ public class CourseController {
 
     @RequestMapping("/courses")
     public String index(Model model) {
-        List<Course> courses = (List<Course>) repository.findAll();
+        List<Course> courses = (List<Course>) repository.findAllByOrderByNameAsc();
         model.addAttribute("courses", courses);
         return "courses";
     }

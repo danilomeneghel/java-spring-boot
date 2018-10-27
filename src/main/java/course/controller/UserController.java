@@ -72,7 +72,7 @@ public class UserController {
 
     @RequestMapping("/users")
     public String index(Model model) {
-        List<User> users = (List<User>) repository.findAll();
+        List<User> users = (List<User>) repository.findAllByOrderByUsernameAsc();
         model.addAttribute("users", users);
         return "users";
     }

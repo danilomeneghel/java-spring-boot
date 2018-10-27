@@ -33,7 +33,7 @@ public class StudentController {
 
     @RequestMapping("/students")
     public String index(Model model) {
-        List<Student> students = (List<Student>) repository.findAll();
+        List<Student> students = (List<Student>) repository.findAllByOrderByFirstNameAsc();
         model.addAttribute("students", students);
         return "students";
     }
