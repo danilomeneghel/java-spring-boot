@@ -28,7 +28,6 @@ public class Student {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }

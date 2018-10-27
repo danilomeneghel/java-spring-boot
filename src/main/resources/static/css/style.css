@@ -123,8 +123,8 @@ fieldset {
     border: 1px solid #000 !important;
 }
 .btn-logout {
-    background-color: #eee !important;
-    color: #343C41 !important;
+    background-color: #343C41 !important;
+    color: #eee !important;
     border: 1px solid #000 !important;
 }
 .alert {
@@ -133,4 +133,7 @@ fieldset {
 .col-md-4 {
     padding-right: 0px !important;
     padding-left: 0px !important;
+}
+.navbar-header a {
+    font-weight: bold;
 }

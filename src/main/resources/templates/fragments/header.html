@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
         <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
@@ -7,7 +8,6 @@
         <link type="text/css" rel="stylesheet" href="/css/style.css" th:href="@{css/style.css}" />
         <title>Course</title>
     </head>
-
     <body>
         <div th:fragment="header">
             <nav class="navbar navbar-default">
@@ -16,12 +16,15 @@
                         <ul class="nav navbar-nav">
                             <li><a href="#" th:href="@{/}">Home</a></li>
                             <li><a href="#" th:href="@{/students}">Students</a></li>
+                            <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/courses}">Courses</a></li>
                             <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">Users</a></li>
                         </ul>
                     </div>
                     <div style="float:right; margin:6px 8px">
                         <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Logout" class="btn btn-danger"/>
+                            <button type="submit" value="Logout" class="btn btn-logout"/>
+                            <i class="fa fa-sign-out"></i> Logout
+                            </button>
                         </form>
                     </div>
                 </div>

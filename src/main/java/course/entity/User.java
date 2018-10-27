@@ -1,5 +1,7 @@
 package course.entity;
 
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 @Entity
@@ -7,26 +9,31 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "id", updatable = false)
     private Long id;
 
-    // Username with unique constraint
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @NotEmpty
+    @Column(name = "username", nullable = false)
+    private String username = "";
 
+    @NotEmpty
     @Column(name = "password", nullable = false)
-    private String passwordHash;
+    private String password = "";
 
-    @Column(name = "role", nullable = false)
+    @Transient
+    @Column(nullable = false, updatable = false)
+    private String passwordCheck = "";
+
+    @Column(name = "role")
     private String role;
 
     public User() {
     }
 
-    public User(String username, String passwordHash, String role) {
+    public User(String username, String password, String role) {
         super();
         this.username = username;
-        this.passwordHash = passwordHash;
+        this.password = password;
         this.role = role;
     }
 
@@ -46,12 +53,20 @@ public class User {
         this.username = username;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordCheck() {
+        return passwordCheck;
+    }
+
+    public void setPasswordCheck(String passwordCheck) {
+        this.passwordCheck = passwordCheck;
     }
 
     public String getRole() {

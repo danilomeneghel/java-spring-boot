@@ -2,12 +2,12 @@
 <html>
     <head lang="en">
         <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
-    </head>
+    </head>    
     <body>
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
         <div class="container">
             <div class="text-center">
-                <h2 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h2>
+                <h2 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!</h2>
                 <span>Course Registration</span>
             </div>
         </div>

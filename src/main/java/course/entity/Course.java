@@ -8,7 +8,6 @@ import javax.persistence.*;
 public class Course {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long courseid;
 
     @Column(name = "coursename")
@@ -26,6 +25,10 @@ public class Course {
 
     public long getCourseid() {
         return courseid;
+    }
+    
+    public void setCourseid(long courseid) {
+        this.courseid = courseid;
     }
 
     public String getName() {

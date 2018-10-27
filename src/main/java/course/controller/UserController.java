@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
-import course.entity.SignupForm;
 import course.entity.User;
 import course.repository.UserRepository;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -25,38 +25,40 @@ public class UserController {
 
     @RequestMapping(value = "signup")
     public String signup(Model model) {
-        model.addAttribute("signupForm", new SignupForm());
+        model.addAttribute("signup", new User());
         return "signup";
     }
 
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("signupForm") SignupForm signupForm, BindingResult bindingResult) {
-        System.out.println(bindingResult.toString());
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long userId) {
         String view;
-        if (signupForm.getRole() == null) {
-            view = "signup";
+        if (user.getRole() == null) {
+            view = "user";
         } else {
             view = "redirect:/users";
         }
         if (!bindingResult.hasErrors()) { // validation errors
-            if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) { // check password match		
-                String pwd = signupForm.getPassword();
+            if (user.getPassword().equals(user.getPasswordCheck())) { // check password match		
+                String pwd = user.getPassword();
                 BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
                 String hashPwd = bc.encode(pwd);
-
-                User newUser = new User();
-                newUser.setPasswordHash(hashPwd);
-                newUser.setUsername(signupForm.getUsername());
-                if (signupForm.getRole() == null) {
-                    newUser.setRole("USER");
+                user.setPassword(hashPwd);
+                if (userId == null) {
+                    if (repository.findByUsername(user.getUsername()) == null) {
+                        if (user.getRole() == null) {
+                            user.setRole("USER");
+                            repository.save(user);
+                            return "redirect:/login";
+                        } else {
+                            repository.save(user);
+                            return view;
+                        }
+                    } else {
+                        bindingResult.rejectValue("username", "error.userexists", "Username already exists");
+                        return view;
+                    }
                 } else {
-                    newUser.setRole(signupForm.getRole());
-                }
-
-                if (repository.findByUsername(signupForm.getUsername()) == null) {
-                    repository.save(newUser);
-                } else {
-                    bindingResult.rejectValue("username", "error.userexists", "Username already exists");
+                    repository.save(user);
                     return view;
                 }
             } else {
@@ -66,7 +68,6 @@ public class UserController {
         } else {
             return view;
         }
-        return "redirect:/login";
     }
 
     @RequestMapping("/users")
@@ -78,7 +79,7 @@ public class UserController {
 
     @RequestMapping(value = "addUser")
     public String addUser(Model model) {
-        model.addAttribute("signupForm", new SignupForm());
+        model.addAttribute("user", new User());
         return "addUser";
     }
 
