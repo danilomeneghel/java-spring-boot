@@ -63,3 +63,6 @@ User Registration is licensed under <a href="LICENSE">The MIT License (MIT)</a>.
 ![Screenshots](screenshots/screenshot02.png)<br><br>
 ![Screenshots](screenshots/screenshot03.png)<br><br>
 ![Screenshots](screenshots/screenshot04.png)<br><br>
+![Screenshots](screenshots/screenshot05.png)<br><br>
+![Screenshots](screenshots/screenshot06.png)<br><br>
+![Screenshots](screenshots/screenshot07.png)<br><br>
