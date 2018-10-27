@@ -137,3 +137,25 @@ fieldset {
 .navbar-header a {
     font-weight: bold;
 }
+.menubar {
+    float: left;
+    width: auto;
+    display: block;
+    padding: .3em;
+    outline: 0 none;
+}
+.menu-list {
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    line-height: 1.3;
+    text-decoration: none;
+    list-style: none;
+}
+.menu-item {
+    float: left;
+    width: auto;
+    clear: none;
+}

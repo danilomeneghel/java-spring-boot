@@ -12,12 +12,12 @@
         <div th:fragment="header">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                    <div class="navbar-header">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#" th:href="@{/}">Home</a></li>
-                            <li><a href="#" th:href="@{/students}">Students</a></li>
-                            <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/courses}">Courses</a></li>
-                            <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">Users</a></li>
+                    <div class="navbar-header menubar">
+                        <ul class="nav navbar-nav menu-list">
+                            <li class="menu-item"><a href="#" th:href="@{/}">Home</a></li>
+                            <li class="menu-item"><a href="#" th:href="@{/students}">Students</a></li>
+                            <li class="menu-item"><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/courses}">Courses</a></li>
+                            <li class="menu-item"><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">Users</a></li>
                         </ul>
                     </div>
                     <div style="float:right; margin:6px 8px">

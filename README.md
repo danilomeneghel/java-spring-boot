@@ -1,6 +1,6 @@
 # Course
 
-Course registration project using Java Web with Spring Framework.
+Course registration project using Java Web with Spring Framework.<br>
 Spring much lighter! :)
 
 ## Features
@@ -9,6 +9,7 @@ Spring much lighter! :)
 - DDD
 - ACL
 - Login
+- Responsive
 
 ## Requirements
 
@@ -53,6 +54,10 @@ After you finish configuring, just open NetBeans and run the project in the brow
 
 http://localhost:8080/
 
+## Login
+	- Username: admin
+	- Password: admin
+
 ## Licence
 
 User Registration is licensed under <a href="LICENSE">The MIT License (MIT)</a>.
@@ -66,3 +71,10 @@ User Registration is licensed under <a href="LICENSE">The MIT License (MIT)</a>.
 ![Screenshots](screenshots/screenshot05.png)<br><br>
 ![Screenshots](screenshots/screenshot06.png)<br><br>
 ![Screenshots](screenshots/screenshot07.png)<br><br>
+![Screenshots](screenshots/screenshot08.png)<br><br>
+
+
+Developed by<br>
+Danilo Meneghel<br>
+danilo.meneghel@gmail.com<br>
+http://danilomeneghel.github.io/<br>
