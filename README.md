@@ -23,7 +23,7 @@ Spring much lighter! :)
 - Java
 - JPA
 - Maven
-- Spring-Boot
+- Spring
 - CSS
 - Bootstrap
 - MySql
