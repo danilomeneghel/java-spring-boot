@@ -6,8 +6,8 @@ Spring much lighter! :)
 ## Features
 
 - CRUD
-- DDD
 - ACL
+- Validation
 - Login
 - Responsive
 
