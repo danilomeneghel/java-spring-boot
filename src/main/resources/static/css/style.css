@@ -19,6 +19,11 @@ h3, .h3 {
     font-size: 24px;
 }
 
+.container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
 .bg-login {
     background-color: #eaeaea;
     min-height: 650px !important;
@@ -158,4 +163,13 @@ fieldset {
     float: left;
     width: auto;
     clear: none;
+}
+
+.col-actions {
+    text-align: center;
+    width: 300px !important;
+}
+
+.show-buttons {
+    padding-left: 15px;
 }

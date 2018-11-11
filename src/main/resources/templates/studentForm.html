@@ -8,8 +8,8 @@
         <div class="container">
             <h2>[[${title}]]</h2>
             <div class="col-md-4">
-                <form th:object="${student}" th:action="@{saveStudent}" action="#" method="post">
-                    <input type="hidden" th:field="*{id}" class="form-control"/>
+                <form th:object="${student}" th:action="@{/saveStudent}" action="#" method="post">
+                    <input type="hidden" th:field="*{id}"/>
                     <div class="form-group">
                         <input type="text" th:field="*{firstName}" class="form-control" placeholder="Firstname" />
                         <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Firstname Error</p>

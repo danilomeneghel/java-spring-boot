@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import course.service.UserDetailServiceImpl;
+import course.service.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -17,7 +17,7 @@ import course.service.UserDetailServiceImpl;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailServiceImpl userDetailsService;
+    private UserServiceImpl userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
             .loginPage("/login")
-            .defaultSuccessUrl("/students")
+            .defaultSuccessUrl("/")
             .permitAll()
             .and()
             .logout()

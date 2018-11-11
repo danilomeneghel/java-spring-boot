@@ -9,7 +9,9 @@ import javax.validation.constraints.Size;
 public class Course {
 
     @Id
-    private long courseid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "courseid")
+    private Long courseid;
 
     @Size(min = 3, message = "Course is invalid")
     @Column(name = "coursename")
@@ -25,11 +27,11 @@ public class Course {
         this.name = name;
     }
 
-    public long getCourseid() {
+    public Long getCourseid() {
         return courseid;
     }
     
-    public void setCourseid(long courseid) {
+    public void setCourseid(Long courseid) {
         this.courseid = courseid;
     }
 

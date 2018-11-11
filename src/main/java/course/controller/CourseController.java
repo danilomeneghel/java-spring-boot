@@ -1,7 +1,7 @@
 package course.controller;
 
 import java.util.List;
-import java.util.Optional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,54 +9,59 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import course.entity.Course;
-import course.repository.CourseRepository;
-import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import course.entity.Course;
+import course.service.CourseServiceImpl;
 
 @Controller
 public class CourseController {
 
     @Autowired
-    private CourseRepository repository;
-
+    private CourseServiceImpl courseService;
+    
     @RequestMapping("courses")
     public String index(Model model) {
-        List<Course> courses = (List<Course>) repository.findAllByOrderByNameAsc();
+        List<Course> courses = (List<Course>) courseService.findAllByOrderByNameAsc();
         model.addAttribute("courses", courses);
         return "courses";
     }
 
-    @RequestMapping(value = "addCourse")
-    public String addCourse(Model model) {
+    @RequestMapping(value = "course/new")
+    public String newCourse(Model model) {
         model.addAttribute("course", new Course());
         model.addAttribute("title", "Add Course");
-        return "formCourse";
+        return "courseForm";
     }
 
-    @RequestMapping(value = "editCourse/{id}")
+    @RequestMapping(value = "course/edit/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model) {
-        model.addAttribute("course", repository.findById(courseId));
+        model.addAttribute("course", courseService.findCourseById(courseId));
         model.addAttribute("title", "Edit Course");
-        return "formCourse";
+        return "courseForm";
     }
 
+    @RequestMapping("course/{id}")
+    public String showCourse(@PathVariable("id") Long courseId, Model model) {
+        model.addAttribute("course", courseService.findCourseById(courseId));
+        model.addAttribute("title", "Show Course");
+        return "courseShow";
+    }
+    
     @RequestMapping(value = "saveCourse", method = RequestMethod.POST)
-    public String saveCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long courseId) {
+    public String saveCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) { 
-            repository.save(course);
+            courseService.saveCourse(course);
         } else {
-            return "formCourse";
+            return "courseForm";
         }
         return "redirect:/courses";
     }
 
-    @RequestMapping(value = "deleteCourse/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "course/delete/{id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
-        repository.deleteById(courseId);
+        courseService.deleteCourseById(courseId);
         return "redirect:/courses";
     }
 

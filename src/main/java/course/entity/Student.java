@@ -11,14 +11,22 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class Student {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", unique=true, nullable = false)
+    private Long id;
+    
     @Size(min = 3, message = "Firstname is invalid")
     private String firstName;
+    
     @Size(min = 3, message = "Lastname is invalid")
     private String lastName;
-    @Size(min = 3, message = "Department is invalid")
+    
+    @Size(min = 2, message = "Department is invalid")
     private String department;
-    @NotEmpty 
+    
+    @NotEmpty
     @Email
     private String email;
 
@@ -36,11 +44,11 @@ public class Student {
     }
 
     @Id
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

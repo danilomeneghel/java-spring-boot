@@ -3,6 +3,8 @@ package course.service;
 import course.entity.User;
 import course.repository.UserRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +17,45 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
-
-    private final UserRepository repository;
+public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
-    public UserDetailServiceImpl(UserRepository repository) {
+    private final UserRepository repository;
+
+    public User findUserById(Long id) {
+        return repository.findById(id).orElse(new User());
+    }
+    
+    public List<User> findAllByOrderByUsernameAsc() {
+        return repository.findAllByOrderByUsernameAsc();
+    }
+    
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    public void saveUser(User user) {
+        repository.save(user);
+    }
+
+    public void updateUser(User user) {
+        repository.save(user);
+    }
+
+    public void deleteUserById(Long id) {
+        repository.deleteById(id);
+    }
+
+    public void deleteAllUsers() {
+        repository.deleteAll();
+    }
+
+    public List<User> findAllUsers() {
+        return (List<User>) repository.findAll();
+    }
+
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
 

@@ -7,7 +7,7 @@
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
         <div class="container">
             <h2>Courses</h2>
-            <a href="addCourse" class="btn btn-success"><i class="fa fa-plus"></i> Add Course</a>
+            <a href="/course/new" class="btn btn-success"><i class="fa fa-plus"></i> Add Course</a>
             <br><br>
             <table class="table table-striped">
                 <tr>
@@ -16,9 +16,10 @@
                 </tr>  
                 <tr th:each = "course : ${courses}">
                     <td th:text="${course.name}"></td>
-                    <td>
-                        <a th:href="@{/editCourse/{id}(id=${course.courseid})}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
-                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/deleteCourse/{id}(id=${course.courseid})}" onclick="return confirm('Are you sure you want to remove?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                    <td class="col-actions">
+                        <a th:href="@{/course/{id}(id=${course.courseid})}" class="btn btn-default"><i class="fa fa-eye"></i> Show</a>
+                        <a th:href="@{/course/edit/{id}(id=${course.courseid})}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/course/delete/{id}(id=${course.courseid})}" onclick="return confirm('Are you sure you want to remove?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
                     </td>
                 </tr>
             </table>

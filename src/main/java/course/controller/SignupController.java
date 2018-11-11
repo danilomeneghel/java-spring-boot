@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 import course.entity.User;
-import course.repository.UserRepository;
+import course.service.UserServiceImpl;
 
 @Controller
 public class SignupController {
 
     @Autowired
-    private UserRepository repository;
+    private UserServiceImpl userService;
 
     @RequestMapping(value = "signup")
     public String signup(Model model) {
@@ -30,13 +30,13 @@ public class SignupController {
     public String saveSignup(@Valid @ModelAttribute("signup") User user, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) { // validation errors
             if (user.getPassword().equals(user.getPasswordCheck())) { // check password match		
-                if (repository.findByUsername(user.getUsername()) == null) { // validate username
+                if (userService.findByUsername(user.getUsername()) == null) { // validate username
                     String pwd = user.getPassword();
                     BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
                     String hashPwd = bc.encode(pwd);
                     user.setPassword(hashPwd);
                     user.setRole("USER");
-                    repository.save(user);
+                    userService.saveUser(user);
                     return "redirect:/login";
                 } else {
                     bindingResult.rejectValue("username", "error.userexists", "Username already exists");
