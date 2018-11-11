@@ -6,12 +6,13 @@
     <body>
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
         <div class="container">
-            <h2>Edit Course</h2>
+            <h2>[[${title}]]</h2>
             <div class="col-md-4">
-                <form th:object="${course}" th:action="@{../saveCourse}" action="#" method="post">
+                <form th:object="${course}" th:action="@{saveCourse}" action="#" method="post">
                     <input type="hidden" th:field="*{courseid}" class="form-control"/>
                     <div class="form-group">
                         <input type="text" th:field="*{name}" class="form-control" placeholder="Course" />
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Course Error</p>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-default" href="/courses"><i class="fa fa-arrow-left"></i> Back</a>

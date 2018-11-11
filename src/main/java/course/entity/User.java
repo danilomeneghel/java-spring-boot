@@ -1,7 +1,6 @@
 package course.entity;
 
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 @Entity
@@ -12,15 +11,16 @@ public class User {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @NotEmpty
+    @Size(min = 3, message = "Username is invalid")
     @Column(name = "username", nullable = false)
     private String username = "";
 
-    @NotEmpty
+    @Size(min = 4, message = "Password is invalid")
     @Column(name = "password", nullable = false)
     private String password = "";
 
     @Transient
+    @Size(min = 4, message = "Password is invalid")
     @Column(nullable = false, updatable = false)
     private String passwordCheck = "";
 

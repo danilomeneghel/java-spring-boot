@@ -4,14 +4,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Student {
 
     private long id;
+    @Size(min = 3, message = "Firstname is invalid")
     private String firstName;
+    @Size(min = 3, message = "Lastname is invalid")
     private String lastName;
+    @Size(min = 3, message = "Department is invalid")
     private String department;
+    @NotEmpty 
+    @Email
     private String email;
 
     private Set<Course> courses = new HashSet<Course>(0);

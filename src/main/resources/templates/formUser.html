@@ -6,19 +6,18 @@
     <body>
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
         <div class="container">
-            <h2>New User</h2>
+            <h2>[[${title}]]</h2>
             <div class="col-md-4">
-                <form th:object="${user}" th:action="@{/saveUser}" action="#" method="post">
+                <form th:object="${user}" th:action="@{saveUser}" action="#" method="post">
+                    <input type="hidden" th:field="*{id}" class="form-control"/>
                     <div class="form-group">
                         <input type="text" th:field="*{username}" class="form-control" placeholder="Username" />
-                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
                     </div>
                     <div class="form-group">
-                        <input type="text" th:field="*{password}" class="form-control" placeholder="Password" />
-                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+                        <input type="text" name="password" class="form-control" placeholder="Password" />
                     </div>
                     <div class="form-group">
-                        <input type="text" th:field="*{passwordCheck}" class="form-control" placeholder="Re-enter Password" />
+                        <input type="text" name="passwordCheck" class="form-control" placeholder="Re-enter Password" />
                         <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
                     </div>
                     <div class="form-group">
@@ -32,7 +31,7 @@
                         <button type="submit" class="btn btn-login"/>
                         <i class="fa fa-hdd-o"></i> Save
                         </button>
-                    </div>	
+                    </div>
                 </form>
             </div>
         </div>

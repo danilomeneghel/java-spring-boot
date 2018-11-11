@@ -16,6 +16,9 @@ import course.entity.Course;
 import course.repository.CourseRepository;
 import course.entity.Student;
 import course.repository.StudentRepository;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class StudentController {
@@ -26,12 +29,7 @@ public class StudentController {
     @Autowired
     private CourseRepository crepository;
 
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping("/students")
+    @RequestMapping("students")
     public String index(Model model) {
         List<Student> students = (List<Student>) repository.findAllByOrderByFirstNameAsc();
         model.addAttribute("students", students);
@@ -41,22 +39,28 @@ public class StudentController {
     @RequestMapping(value = "addStudent")
     public String addStudent(Model model) {
         model.addAttribute("student", new Student());
-        return "addStudent";
+        model.addAttribute("title", "Add Student");
+        return "formStudent";
     }
 
-    @RequestMapping(value = "/editStudent/{id}")
+    @RequestMapping(value = "editStudent/{id}")
     public String editStudent(@PathVariable("id") Long studentId, Model model) {
         model.addAttribute("student", repository.findById(studentId));
-        return "editStudent";
+        model.addAttribute("title", "Edit Student");
+        return "formStudent";
     }
 
     @RequestMapping(value = "saveStudent", method = RequestMethod.POST)
-    public String saveStudent(Student student) {
-        repository.save(student);
+    public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long studentId) {
+        if (!bindingResult.hasErrors()) { 
+            repository.save(student);
+        } else {
+            return "formStudent";
+        }
         return "redirect:/students";
     }
 
-    @RequestMapping(value = "/deleteStudent/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "deleteStudent/{id}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
         repository.deleteById(studentId);
         return "redirect:/students";
@@ -69,7 +73,7 @@ public class StudentController {
         return "addStudentCourse";
     }
 
-    @RequestMapping(value = "/student/{id}/courses", method = RequestMethod.GET)
+    @RequestMapping(value = "student/{id}/courses", method = RequestMethod.GET)
     public String studentsAddCourse(@RequestParam(value = "action", required = true) String action, @PathVariable Long id, @RequestParam Long courseId, Model model) {
         Optional<Course> course = crepository.findById(courseId);
         Optional<Student> student = repository.findById(id);

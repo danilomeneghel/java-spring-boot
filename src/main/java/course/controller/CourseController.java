@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import course.entity.Course;
 import course.repository.CourseRepository;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CourseController {
@@ -19,7 +23,7 @@ public class CourseController {
     @Autowired
     private CourseRepository repository;
 
-    @RequestMapping("/courses")
+    @RequestMapping("courses")
     public String index(Model model) {
         List<Course> courses = (List<Course>) repository.findAllByOrderByNameAsc();
         model.addAttribute("courses", courses);
@@ -29,22 +33,28 @@ public class CourseController {
     @RequestMapping(value = "addCourse")
     public String addCourse(Model model) {
         model.addAttribute("course", new Course());
-        return "addCourse";
+        model.addAttribute("title", "Add Course");
+        return "formCourse";
     }
 
-    @RequestMapping(value = "/editCourse/{id}")
+    @RequestMapping(value = "editCourse/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model) {
         model.addAttribute("course", repository.findById(courseId));
-        return "editCourse";
+        model.addAttribute("title", "Edit Course");
+        return "formCourse";
     }
 
     @RequestMapping(value = "saveCourse", method = RequestMethod.POST)
-    public String saveCourse(Course course) {
-        repository.save(course);
+    public String saveCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long courseId) {
+        if (!bindingResult.hasErrors()) { 
+            repository.save(course);
+        } else {
+            return "formCourse";
+        }
         return "redirect:/courses";
     }
 
-    @RequestMapping(value = "/deleteCourse/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "deleteCourse/{id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
         repository.deleteById(courseId);
         return "redirect:/courses";

@@ -1,20 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
       xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-        <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" th:href="@{css/font-awesome.min.css}" />
-        <link type="text/css" rel="stylesheet" href="/css/style.css" th:href="@{css/style.css}" />
-        <title>Sign up</title>
-    </head>
+    <head lang="en">
+        <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+    </head>    
     <body>
         <div class="bg-login">
             <div class="container-login">
                 <div class="panel panel-default">
                     <div class="panel-body box-login">
                         <h3 class="title-login">Sign up</h3>
-                        <form th:object="${signup}" th:action="@{/saveUser}" action="#" method="post">
+                        <form th:object="${signup}" th:action="@{/saveSignup}" action="#" method="post">
                             <div class="form-group">
                                 <input type="text" th:field="*{username}" class="form-control" placeholder="Username" />
                                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>

@@ -3,6 +3,7 @@ package course.entity;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Course {
@@ -10,6 +11,7 @@ public class Course {
     @Id
     private long courseid;
 
+    @Size(min = 3, message = "Course is invalid")
     @Column(name = "coursename")
     private String name;
 
