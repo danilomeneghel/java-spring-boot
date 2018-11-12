@@ -11,21 +11,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class Student {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", unique=true, nullable = false)
     private Long id;
-    
+
     @Size(min = 3, message = "Firstname is invalid")
     private String firstName;
-    
+
     @Size(min = 3, message = "Lastname is invalid")
     private String lastName;
-    
+
     @Size(min = 2, message = "Department is invalid")
     private String department;
-    
+
     @NotEmpty
     @Email
     private String email;
@@ -44,6 +40,7 @@ public class Student {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -91,7 +88,8 @@ public class Student {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "student_course", joinColumns = {
         @JoinColumn(name = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "courseid")})
+        @JoinColumn(name = "courseid")
+    })
     public Set<Course> getCourses() {
         return this.courses;
     }
