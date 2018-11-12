@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 27-Out-2018 às 00:54
+-- Generation Time: 12-Nov-2018 às 03:16
 -- Versão do servidor: 5.7.21
 -- PHP Version: 7.2.4
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `courseid` bigint(20) NOT NULL AUTO_INCREMENT,
   `coursename` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`courseid`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `course`
@@ -50,25 +50,6 @@ INSERT INTO `course` (`courseid`, `coursename`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `hibernate_sequence`
---
-
-DROP TABLE IF EXISTS `hibernate_sequence`;
-CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
-  `next_val` bigint(20) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `hibernate_sequence`
---
-
-INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(9),
-(9);
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `student`
 --
 
@@ -80,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `student`
@@ -102,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `student_course` (
   `id` bigint(20) NOT NULL,
   `courseid` bigint(20) NOT NULL,
   PRIMARY KEY (`id`,`courseid`),
-  KEY `FKl348l2fhyxr5msuv4jwjr2w7f` (`courseid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `courseid` (`courseid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `student_course`
@@ -111,10 +92,12 @@ CREATE TABLE IF NOT EXISTS `student_course` (
 
 INSERT INTO `student_course` (`id`, `courseid`) VALUES
 (1, 1),
+(2, 1),
+(3, 1),
 (1, 2),
 (1, 3),
-(2, 6),
-(3, 5);
+(2, 3),
+(3, 6);
 
 -- --------------------------------------------------------
 
@@ -128,20 +111,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password_hash` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_sb8bbouer5wak8vyiiy4pf2bx` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `user`
 --
 
-INSERT INTO `user` (`id`, `password`, `role`, `username`, `password_hash`) VALUES
-(1, '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 'USER', 'user', NULL),
-(2, '$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2', 'ADMIN', 'admin', NULL),
-(7, '$2a$10$bvAraSaoVY.s0n8d0381Wu/W0u7YOhcd17vXRI370xQuKORzBXSIm', 'ADMIN', 'teste2', NULL),
-(8, '$2a$10$nxBjvzGTKabRPT0QjQstEOAPxYkMmieE3LEbXgHiEFjA05Xsz1oWu', 'USER', 'teste3', NULL);
+INSERT INTO `user` (`id`, `password`, `role`, `username`) VALUES
+(1, '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 'USER', 'user'),
+(2, '$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2', 'ADMIN', 'admin');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `student_course`
+--
+ALTER TABLE `student_course`
+  ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`courseid`) REFERENCES `course` (`courseid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
