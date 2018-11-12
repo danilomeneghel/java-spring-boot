@@ -5,13 +5,13 @@
     </head>
     <body>
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-        <div class="container">
+        <div class="container-fluid">
             <h2>Add Course</h2>
             <form th:action="@{/student/{id}/courses(id=${student.id})}" method="get" enctype="multipart/form-data" >
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">Student Info</div>
-                        <div class="panel-body" style="padding-left: 5px;">
+                        <div class="panel-body" style="padding-left: 15px;">
                             Name: <b th:text="${student.firstName}" /> <b th:text="${student.lastName}" /><br/>
                             Email: <span th:text="${student.email}" /><br/>
                             Department: <span th:text="${student.department}" /><br/>

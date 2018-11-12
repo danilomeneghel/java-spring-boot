@@ -20,7 +20,6 @@ public class User {
     private String password = "";
 
     @Transient
-    @Size(min = 4, message = "Password is invalid")
     @Column(nullable = false, updatable = false)
     private String passwordCheck = "";
 

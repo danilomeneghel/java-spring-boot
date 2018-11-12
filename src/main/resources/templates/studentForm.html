@@ -5,7 +5,7 @@
     </head>
     <body>
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-        <div class="container">
+        <div class="container-fluid">
             <h2>[[${title}]]</h2>
             <div class="col-md-4">
                 <form th:object="${student}" th:action="@{/saveStudent}" action="#" method="post">

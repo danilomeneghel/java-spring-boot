@@ -26,25 +26,27 @@ public class UserController {
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long userId, Model model) {
         if (!bindingResult.hasErrors()) { // validation errors
-            if (user.getPassword().equals(user.getPasswordCheck())) { // check password match		
+            if (user.getPassword() != null) {
+                String pwd = user.getPassword();
+                BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+                String hashPwd = bc.encode(pwd);
+                user.setPassword(hashPwd);
+            }
+            if (userId == null) { // check if new user
                 if (userService.findByUsername(user.getUsername()) == null) { // validate username
-                    String pwd = user.getPassword();
-                    BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-                    String hashPwd = bc.encode(pwd);
-                    user.setPassword(hashPwd);
                     userService.saveUser(user);
-                    return "redirect:/users";
                 } else {
                     bindingResult.rejectValue("username", "error.userexists", "Username already exists");
                 }
             } else {
-                bindingResult.rejectValue("passwordCheck", "error.pwdmatch", "Passwords does not match");
+                userService.saveUser(user);
             }
         } else {
             String title = (userId == null) ? "Add User" : "Edit User";
             model.addAttribute("title", title);
+            return "userForm";
         }
-        return "userForm";
+        return "redirect:/users";
     }
 
     @RequestMapping("users")
@@ -74,7 +76,7 @@ public class UserController {
         model.addAttribute("title", "Show User");
         return "userShow";
     }
-    
+
     @RequestMapping(value = "user/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") Long userId, Model model) {
         userService.deleteUserById(userId);

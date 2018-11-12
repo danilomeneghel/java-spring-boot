@@ -19,9 +19,9 @@ h3, .h3 {
     font-size: 24px;
 }
 
-.container {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+.container-fluid {
+    padding-left: 45px !important;
+    padding-right: 45px !important;
 }
 
 .bg-login {
