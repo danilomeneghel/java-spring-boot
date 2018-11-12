@@ -57,10 +57,12 @@ public class StudentController {
     }
 
     @RequestMapping(value = "saveStudent", method = RequestMethod.POST)
-    public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
+    public String saveStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, @RequestParam("id") Long studentId, Model model) {
         if (!bindingResult.hasErrors()) {
             studentService.saveStudent(student);
         } else {
+            String title = (studentId == null) ? "Add Student" : "Edit Student";
+            model.addAttribute("title", title);
             return "studentForm";
         }
         return "redirect:/students";

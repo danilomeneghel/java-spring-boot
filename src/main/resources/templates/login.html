@@ -9,6 +9,9 @@
                 <div class="panel panel-default">
                     <div class="panel-body box-login">
                         <h3 class="title-login">Sign in</h3>
+                        <div class="alert alert-success" th:if="${message}">
+                            User registered successfully!
+                        </div>
                         <form th:action="@{/login}" method="post">
                             <div class="form-group">
                                 <i class="fa fa-user"></i>

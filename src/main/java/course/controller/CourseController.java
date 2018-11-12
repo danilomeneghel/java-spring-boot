@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import course.entity.Course;
 import course.service.CourseServiceImpl;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CourseController {
@@ -50,10 +51,12 @@ public class CourseController {
     }
     
     @RequestMapping(value = "saveCourse", method = RequestMethod.POST)
-    public String saveCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult) {
+    public String saveCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult, @RequestParam("courseid") Long courseId, Model model) {
         if (!bindingResult.hasErrors()) { 
             courseService.saveCourse(course);
         } else {
+            String title = (courseId == null) ? "Add Course" : "Edit Course";
+            model.addAttribute("title", title);
             return "courseForm";
         }
         return "redirect:/courses";

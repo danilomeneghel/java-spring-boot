@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -27,7 +28,7 @@ public class SignupController {
     }
 
     @RequestMapping(value = "saveSignup", method = RequestMethod.POST)
-    public String saveSignup(@Valid @ModelAttribute("signup") User user, BindingResult bindingResult) {
+    public String saveSignup(@Valid @ModelAttribute("signup") User user, BindingResult bindingResult, RedirectAttributes redirAttrs) {
         if (!bindingResult.hasErrors()) { // validation errors
             if (user.getPassword().equals(user.getPasswordCheck())) { // check password match		
                 if (userService.findByUsername(user.getUsername()) == null) { // validate username
@@ -37,6 +38,7 @@ public class SignupController {
                     user.setPassword(hashPwd);
                     user.setRole("USER");
                     userService.saveUser(user);
+                    redirAttrs.addFlashAttribute("message", "User registered successfully!");
                     return "redirect:/login";
                 } else {
                     bindingResult.rejectValue("username", "error.userexists", "Username already exists");

@@ -24,7 +24,7 @@ public class UserController {
     private UserServiceImpl userService;
 
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long userId) {
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long userId, Model model) {
         if (!bindingResult.hasErrors()) { // validation errors
             if (user.getPassword().equals(user.getPasswordCheck())) { // check password match		
                 if (userService.findByUsername(user.getUsername()) == null) { // validate username
@@ -40,6 +40,9 @@ public class UserController {
             } else {
                 bindingResult.rejectValue("passwordCheck", "error.pwdmatch", "Passwords does not match");
             }
+        } else {
+            String title = (userId == null) ? "Add User" : "Edit User";
+            model.addAttribute("title", title);
         }
         return "userForm";
     }
