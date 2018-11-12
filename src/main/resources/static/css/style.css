@@ -173,3 +173,11 @@ fieldset {
 .show-buttons {
     padding-left: 15px;
 }
+
+.invalid-feedback-input {
+    border: 1px solid #dc3545;
+}
+.invalid-feedback {
+    margin-top: .25rem;
+    color: #dc3545;
+}

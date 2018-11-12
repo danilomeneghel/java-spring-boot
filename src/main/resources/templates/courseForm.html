@@ -11,8 +11,8 @@
                 <form th:object="${course}" th:action="@{/saveCourse}" action="#" method="post">
                     <input type="hidden" th:field="*{courseid}"/>
                     <div class="form-group">
-                        <input type="text" th:field="*{name}" class="form-control" placeholder="Course" />
-                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Course Error</p>
+                        <input type="text" th:field="*{name}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Course" />
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalid-feedback">Course Error</p>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-default" href="/courses"><i class="fa fa-arrow-left"></i> Back</a>

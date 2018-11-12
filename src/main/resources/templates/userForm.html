@@ -11,14 +11,16 @@
                 <form th:object="${user}" th:action="@{/saveUser}" action="#" method="post">
                     <input type="hidden" th:field="*{id}"/>
                     <div class="form-group">
-                        <input type="text" th:field="*{username}" class="form-control" placeholder="Username" />
+                        <input type="text" th:field="*{username}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Username" />
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="invalid-feedback">Username is invalid</p>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="password" class="form-control" placeholder="Password" />
+                        <input type="text" name="password" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Password" />
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="invalid-feedback">Password is invalid</p>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="passwordCheck" class="form-control" placeholder="Re-enter Password" />
-                        <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+                        <input type="text" name="passwordCheck" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Re-enter Password" />
+                        <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}" th:errorclass="invalid-feedback">Password Match Error</p>
                     </div>
                     <div class="form-group">
                         <select class="form-control" th:field="*{role}">

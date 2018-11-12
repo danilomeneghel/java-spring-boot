@@ -12,16 +12,16 @@
                         <h3 class="title-login">Sign up</h3>
                         <form th:object="${signup}" th:action="@{/saveSignup}" action="#" method="post">
                             <div class="form-group">
-                                <input type="text" th:field="*{username}" class="form-control" placeholder="Username" />
-                                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+                                <input type="text" th:field="*{username}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Username" />
+                                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="invalid-feedback">Username Error</p>
                             </div>	
                             <div class="form-group">
-                                <input type="password" th:field="*{password}" class="form-control" placeholder="Password" />
-                                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+                                <input type="password" th:field="*{password}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Password" />
+                                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="invalid-feedback">Password Error</p>
                             </div>	
                             <div class="form-group">
-                                <input type="password" th:field="*{passwordCheck}" class="form-control" placeholder="Re-enter Password" />
-                                <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+                                <input type="password" th:field="*{passwordCheck}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Re-enter Password" />
+                                <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}" th:errorclass="invalid-feedback">Password Match Error</p>
                             </div>
                             <div class="form-group">
                                 <a class="btn btn-default" href="/"><i class="fa fa-arrow-left"></i> Back</a>
