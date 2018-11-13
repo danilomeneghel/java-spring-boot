@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,14 +23,19 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private final UserRepository repository;
 
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
+
     public User findUserById(Long id) {
         return repository.findById(id).orElse(new User());
     }
-    
+
     public List<User> findAllByOrderByUsernameAsc() {
         return repository.findAllByOrderByUsernameAsc();
     }
-    
+
     public User findByUsername(String username) {
         return repository.findByUsername(username);
     }
@@ -54,9 +60,13 @@ public class UserServiceImpl implements UserDetailsService {
         return (List<User>) repository.findAll();
     }
 
-    @Autowired
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
+    public User encryptPassword(User user) {
+        String pwd = user.getPassword();
+        BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+        String hashPwd = bc.encode(pwd);
+        user.setPassword(hashPwd);
+
+        return user;
     }
 
     @Override

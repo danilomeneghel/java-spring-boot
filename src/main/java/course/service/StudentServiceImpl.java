@@ -14,14 +14,19 @@ public class StudentServiceImpl {
     @Autowired
     private final StudentRepository repository;
 
+    @Autowired
+    public StudentServiceImpl(StudentRepository repository) {
+        this.repository = repository;
+    }
+
     public Student findStudentById(Long id) {
         return repository.findById(id).orElse(new Student());
     }
-    
+
     public List<Student> findAllByOrderByFirstNameAsc() {
         return repository.findAllByOrderByFirstNameAsc();
     }
-    
+
     public void saveStudent(Student student) {
         repository.save(student);
     }
@@ -40,11 +45,6 @@ public class StudentServiceImpl {
 
     public List<Student> findAllStudents() {
         return (List<Student>) repository.findAll();
-    }
-    
-    @Autowired
-    public StudentServiceImpl(StudentRepository repository) {
-        this.repository = repository;
     }
 
 }

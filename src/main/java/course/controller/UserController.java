@@ -1,7 +1,6 @@
 package course.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,10 +26,8 @@ public class UserController {
     public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(value = "id", required = false) Long userId, Model model) {
         if (!bindingResult.hasErrors()) { // validation errors
             if (user.getPassword() != null) {
-                String pwd = user.getPassword();
-                BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-                String hashPwd = bc.encode(pwd);
-                user.setPassword(hashPwd);
+                // encrypt password
+                userService.encryptPassword(user);
             }
             if (userId == null) { // check if new user
                 if (userService.findByUsername(user.getUsername()) == null) { // validate username

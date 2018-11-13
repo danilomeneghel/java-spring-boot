@@ -32,10 +32,8 @@ public class SignupController {
         if (!bindingResult.hasErrors()) { // validation errors
             if (user.getPassword().equals(user.getPasswordCheck())) { // check password match		
                 if (userService.findByUsername(user.getUsername()) == null) { // validate username
-                    String pwd = user.getPassword();
-                    BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-                    String hashPwd = bc.encode(pwd);
-                    user.setPassword(hashPwd);
+                    // encrypt password
+                    userService.encryptPassword(user);
                     user.setRole("USER");
                     userService.saveUser(user);
                     redirAttrs.addFlashAttribute("message", "User registered successfully!");

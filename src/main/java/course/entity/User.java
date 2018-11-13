@@ -13,15 +13,15 @@ public class User {
 
     @Size(min = 3, message = "Username is invalid")
     @Column(name = "username", nullable = false)
-    private String username = "";
+    private String username;
 
     @Size(min = 4, message = "Password is invalid")
     @Column(name = "password", nullable = false)
-    private String password = "";
+    private String password;
 
     @Transient
     @Column(nullable = false, updatable = false)
-    private String passwordCheck = "";
+    private String passwordCheck;
 
     @Column(name = "role")
     private String role;
