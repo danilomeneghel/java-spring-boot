@@ -50,7 +50,9 @@ mysql> source spring_course.sql
 
 ```
 
-After you finish configuring, just open NetBeans and run the project in the browser. <br>
+Then open the file "src/main/resources/application.properties" and enter the data according to the connection of your database. <br>
+
+When the configuration is complete, just type in the terminal "mvn spring-boot: run" and open in your browser the following address: <br>
 
 http://localhost:8080/
 
