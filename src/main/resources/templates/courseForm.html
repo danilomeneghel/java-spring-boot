@@ -7,20 +7,24 @@
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
         <div class="container-fluid">
             <h2>[[${title}]]</h2>
-            <div class="col-md-4">
-                <form th:object="${course}" th:action="@{/saveCourse}" action="#" method="post">
-                    <input type="hidden" th:field="*{courseid}"/>
-                    <div class="form-group">
-                        <input type="text" th:field="*{name}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Course" />
-                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalid-feedback">Course Error</p>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <form th:object="${course}" th:action="@{/saveCourse}" action="#" method="post">
+                            <input type="hidden" th:field="*{courseid}"/>
+                            <div class="form-group">
+                                <input type="text" th:field="*{name}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Course" />
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalid-feedback">Course Error</p>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-default" href="/courses"><i class="fa fa-arrow-left"></i> Back</a>
+                                <button type="submit" class="btn btn-login"/>
+                                <i class="fa fa-hdd-o"></i> Save
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <a class="btn btn-default" href="/courses"><i class="fa fa-arrow-left"></i> Back</a>
-                        <button type="submit" class="btn btn-login"/>
-                        <i class="fa fa-hdd-o"></i> Save
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </body>

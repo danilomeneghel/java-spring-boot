@@ -7,32 +7,36 @@
         <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
         <div class="container-fluid">
             <h2>[[${title}]]</h2>
-            <div class="col-md-4">
-                <form th:object="${student}" th:action="@{/saveStudent}" action="#" method="post">
-                    <input type="hidden" th:field="*{id}"/>
-                    <div class="form-group">
-                        <input type="text" th:field="*{firstName}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Firstname" />
-                        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="invalid-feedback">Firstname Error</p>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <form th:object="${student}" th:action="@{/saveStudent}" action="#" method="post">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="form-group">
+                                <input type="text" th:field="*{firstName}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Firstname" />
+                                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="invalid-feedback">Firstname Error</p>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{lastName}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Lastname" />
+                                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="invalid-feedback">Lastname Error</p>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{department}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Department" />
+                                <p th:if="${#fields.hasErrors('department')}" th:errors="*{department}" th:errorclass="invalid-feedback">Department Error</p>
+                            </div>	
+                            <div class="form-group">
+                                <input type="text" th:field="*{email}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Email" />
+                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="invalid-feedback">Email Error</p>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-default" href="/students"><i class="fa fa-arrow-left"></i> Back</a>
+                                <button type="submit" class="btn btn-login"/>
+                                <i class="fa fa-hdd-o"></i> Save
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="text" th:field="*{lastName}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Lastname" />
-                        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="invalid-feedback">Lastname Error</p>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" th:field="*{department}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Department" />
-                        <p th:if="${#fields.hasErrors('department')}" th:errors="*{department}" th:errorclass="invalid-feedback">Department Error</p>
-                    </div>	
-                    <div class="form-group">
-                        <input type="text" th:field="*{email}" th:errorclass="invalid-feedback-input" class="form-control" placeholder="Email" />
-                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="invalid-feedback">Email Error</p>
-                    </div>
-                    <div class="form-group">
-                        <a class="btn btn-default" href="/students"><i class="fa fa-arrow-left"></i> Back</a>
-                        <button type="submit" class="btn btn-login"/>
-                        <i class="fa fa-hdd-o"></i> Save
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </body>
